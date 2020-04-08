@@ -1,0 +1,32 @@
+extends ../layouts/common
+
+block content
+
+    .container
+        if user
+            h1 Hello, #{user.name}
+
+        h1 Users
+
+        a.btn.btn-primary(href="/users/create") Create user
+
+        form.d-flex.justify-content-end(action="/users/search", method="GET", name="frm")
+            input.form-control(type="text", name="q", style="width: 200px", placeholder="Search")
+            button.btn.btn-primary.ml-4 Search
+
+        table.table.table-hover
+            thead
+                tr
+                    th(scope="col") Avatar
+                    th(scope="col") Name
+                    th(scope="col") Phone
+                    th(scope="col") Option
+            tbody
+                each user in users
+                    tr
+                        td
+                            img(src=`${user.avatar}`, width="40px")
+                        td=user.name
+                        td=user.phone
+                        td
+                            a(href="/users/" + user.id) View
